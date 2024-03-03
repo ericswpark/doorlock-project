@@ -4,7 +4,7 @@ esphome:
   on_boot:
     # Fail locked when power is restored
     then:
-      - switch.turn_on: lock_switch
+      - lock.lock: lock_template
 
 esp8266:
   board: d1_mini
@@ -49,17 +49,17 @@ servo:
     transition_length: 2s
     auto_detach_time: 2s
 
-switch:
+lock:
   - platform: template
-    id: lock_switch
-    name: "Door Lock"
+    id: lock_template
+    name: "Lock Template"
     icon: "mdi:lock"
     optimistic: true
-    turn_on_action:
+    lock_action:
       - servo.write:
           id: lock_servo
           level: -0.7
-    turn_off_action:
+    unlock_action:
       - servo.write:
           id: lock_servo
           level: 0.8
@@ -70,10 +70,16 @@ binary_sensor:
     id: push_button
     on_press:
       then:
-        switch.toggle: lock_switch
+        lambda: |-
+          if (id(lock_template).state == LOCK_STATE_LOCKED ) {
+            id(lock_template).unlock();
+          } else {
+            id(lock_template).lock();
+          }
     pin:
       number: D1
       inverted: true
       mode:
         input: true
         pullup: true
+        
