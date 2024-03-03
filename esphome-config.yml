@@ -46,7 +46,7 @@ servo:
   - id: lock_servo
     output: pwm_output
     restore: true
-    transition_length: 1s
+    transition_length: 2s
     auto_detach_time: 2s
 
 switch:
