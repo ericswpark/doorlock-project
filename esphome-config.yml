@@ -49,20 +49,6 @@ servo:
     transition_length: 1s
     auto_detach_time: 2s
 
-# number:
-#   - platform: template
-#     name: Servo Control
-#     min_value: -100
-#     initial_value: 0
-#     max_value: 100
-#     step: 1
-#     optimistic: true
-#     set_action:
-#       then:
-#         - servo.write:
-#             id: lock_servo
-#             level: !lambda 'return x / 100.0;'
-
 switch:
   - platform: template
     id: lock_switch
