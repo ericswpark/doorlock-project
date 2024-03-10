@@ -1,5 +1,8 @@
+# Doorlock Project
 
+Watch the video here: https://youtu.be/iYCekzGeNBQ
 
+You will have to modify the FreeCAD files to match your door frame and lock dimensions.
 
 
 # Acknowledgements
