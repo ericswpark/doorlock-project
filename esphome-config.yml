@@ -59,11 +59,11 @@ lock:
     lock_action:
       - servo.write:
           id: lock_servo
-          level: -0.7
+          level: !lambda return id(locked_servo_position).state;
     unlock_action:
       - servo.write:
           id: lock_servo
-          level: 0.8
+          level: !lambda return id(unlocked_servo_position).state;
 
 binary_sensor:
   - platform: gpio
@@ -83,4 +83,28 @@ binary_sensor:
       mode:
         input: true
         pullup: true
-        
+
+
+number:
+  - platform: template
+    name: Locked servo position
+    id: locked_servo_position
+    entity_category: config
+    min_value: -1
+    max_value: 1
+    initial_value: -0.7
+    optimistic: true
+    step: 0.1
+    restore_value: true
+    mode: slider
+  - platform: template
+    name: Unlocked servo position
+    id: unlocked_servo_position
+    entity_category: config
+    min_value: -1
+    max_value: 1
+    initial_value: 0.8
+    optimistic: true
+    step: 0.1
+    restore_value: true
+    mode: slider
