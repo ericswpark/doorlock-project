@@ -108,3 +108,31 @@ number:
     step: 0.1
     restore_value: true
     mode: slider
+  - platform: template
+    name: Transition Length (sec)
+    id: servo_transition_length
+    entity_category: config
+    min_value: 0
+    max_value: 5
+    initial_value: 2
+    optimistic: true
+    step: 0.1
+    restore_value: true
+    mode: box
+    set_action:
+      lambda: |-
+        return id(lock_servo).set_transition_length(x * 1000);
+  - platform: template
+    name: Auto Detach Time (sec)
+    id: servo_auto_detach_time
+    entity_category: config
+    min_value: 0
+    max_value: 5
+    initial_value: 2
+    optimistic: true
+    step: 0.1
+    restore_value: true
+    mode: box
+    set_action:
+      lambda: |-
+        return id(lock_servo).set_auto_detach_time(x * 1000);
